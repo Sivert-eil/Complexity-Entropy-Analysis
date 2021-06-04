@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 
 class ComplexityEntropy():
-    ''' Class containing appropriate functions to calculate the complexity and entopy values for a given time sereis '''
+    ''' Class containing appropriate functions to calculate the complexity and entropy values for a given time series '''
 
     def __init__(self, time_series, d, tau = 1):
         '''
@@ -23,9 +23,9 @@ class ComplexityEntropy():
         time_series : LIST / ARRAY
             Time series
         d : INT
-            Embedding dimension
+            Embedding Dimension
         tau : INT, optional
-            Embedding delay. The default is 1.
+            Embedding Delay. The default is 1.
 
         Returns
         -------
@@ -39,7 +39,7 @@ class ComplexityEntropy():
 
     def Permutation_frequency(self):
         '''
-        Function that calculates the relative frequnecy for the different permutations
+        Function that calculates the relative frequency for the different permutations
         of the time series for the given embedding dimension
 
         Returns
@@ -77,19 +77,20 @@ class ComplexityEntropy():
     def Permutation_Entropy(self, Permutation_probability):
         '''
         Function to calculate the permutation entropy for a given probability distribution
-        Retruns the normalized Shannon entropy
+        Returns the normalized Shannon entropy
 
         Parameters
         ----------
         Permutation_probability : ARRAY
-            Array contaning the probalbility distribution of the ordinal patterns.
+            Array containing the probability distribution of the ordinal patterns.
 
         Returns
         -------
-        permutation_entropy : FLOAT
-            Entropy value of the time series.
+        Permutation_entropy : FLOAT
+            Entropy value of the time series. 
 
         '''
+        
         permutation_entropy = 0.0
 
         # Calculate the max entropy, max = log(d!)
@@ -107,12 +108,12 @@ class ComplexityEntropy():
         Parameters
         ----------
         Permutation_probability : ARRAY
-            Array contaning the probalbility distribution of the ordinal patterns.
+            Array containing the probability distribution of the ordinal patterns.
 
         Returns
         -------
         shannon_entropy : FLOAT
-            Shannon entropy value.
+            Shannon entropy value. 
 
         '''
         shannon_entropy = 0.0
@@ -123,17 +124,17 @@ class ComplexityEntropy():
 
     def Jensen_Shannon_Complexity(self, Permutation_probability):
         '''
-        Function to calculate the Jensen-Shannon complexity value for the time sereis
+        Function to calculate the Jensen-Shannon complexity value for the time series
 
         Parameters
         ----------
         Permutation_probability : ARRAY
-            Array contaning the probalbility distribution of the ordinal patterns.
+            Array containing the probability distribution of the ordinal patterns.
 
         Returns
         -------
         jensen_shannon_complexity : FLOAT
-            Jensen-Shannon complexity value.
+            Jensen-Shannon complexity value. 
 
         '''
         P = Permutation_probability
@@ -176,7 +177,7 @@ class ComplexityEntropy():
 
 class MaxMin_complexity(ComplexityEntropy):
     '''
-    Class containing the fuctions to calculate the maximum complexity and
+    Class containing the functions to calculate the maximum complexity and
     minimum complexity lines for the Complexity-Entropy plane with
     embedding dimension d
     '''
@@ -194,14 +195,14 @@ class MaxMin_complexity(ComplexityEntropy):
         None.
 
         '''
-        # definin class variables available to all functions/methods contained in this class
+        # defining class variables available to all functions/methods contained in this class
         self.d = d
         self.N = math.factorial(self.d)
         self.n_steps = n_steps
         self.d_step = (1 - 1/self.N) / (self.n_steps)
 
         # Initilalizing __init__()-function to parent (ComplexityEntropy class)
-        # class to make the functions contained in that class available to this class
+        # class to make the functions contained in that class available in this class
         super().__init__(time_series = None, d = self.d)
 
         # Lists to contain the x and y values for the minimum and maximum
@@ -226,7 +227,7 @@ class MaxMin_complexity(ComplexityEntropy):
 
         '''
         p_min = list(np.arange(1/self.N, 1, self.d_step))
-        for n in tqdm(range(len(p_min)), desc='Minimum', ncols=70):
+        for n in tqdm(range(len(p_min)), desc='Minimum', ncols=80):
             P_minimize = []
             if p_min[n] > 1:
                 p_min[n] = 1
