@@ -7,13 +7,13 @@ import random
 from Complexity_Entropy import ComplexityEntropy, MaxMin_complexity
 
 '''
-The file contains examples where the Complexity-Entropy analysis has been 
-applied and is for demonstration purposes. 
+The file contains examples where the Complexity-Entropy analysis has been
+applied and is for demonstration purposes.
 '''
 
 '''
-Code to generate the maximum and minimum complexity lines with the embedding 
-dimension chosen for most of the analysis done, and is one of the more common 
+Code to generate the maximum and minimum complexity lines with the embedding
+dimension chosen for most of the analysis done, and is one of the more common
 embedding dimensions used for the Complexity-Entropy analysis
 '''
 #Embedding dimension to be used for the rest of the calculations
@@ -21,9 +21,9 @@ d = 6
 
 
 region_CH = MaxMin_complexity(d, n_steps = 1)
-Max = region_CH.Maximum() 
+Max = region_CH.Maximum()
 region_CH = MaxMin_complexity(d, n_steps = 100)
-Min = region_CH.Minimum() 
+Min = region_CH.Minimum()
 #%%
 
 
@@ -35,15 +35,15 @@ plt.legend()
 plt.show
 ##############################################################################
 '''
-Code to reproduce the maximum and minimum complexity lines for different 
-embedding dimensions ass seen in the Theory pdf. 
-However, to generate the maximum complexity line for embedding dimensions of 
-d = 8 and above takes a long time as the number of points for the lines grows 
+Code to reproduce the maximum and minimum complexity lines for different
+embedding dimensions ass seen in the Theory pdf.
+However, to generate the maximum complexity line for embedding dimensions of
+d = 8 and above takes a long time as the number of points for the lines grows
 as [d! x (d! – 1)]
 '''
-region_CH_1= MaxMin_complexity(d = 5, n_steps=1)
+region_CH_1= MaxMin_complexity(d = 4, n_steps=1)
 Max1 = region_CH_1.Maximum()
-region_CH_1= MaxMin_complexity(d = 5, n_steps=100)
+region_CH_1= MaxMin_complexity(d = 4, n_steps=100)
 Min1 = region_CH_1.Minimum()
 
 region_CH_2= MaxMin_complexity(d = 5, n_steps=1)
@@ -112,7 +112,7 @@ plt.show()
 
 ##############################################################################
 '''
-Example code for a linear model. 
+Example code for a linear model.
 '''
 n = 10000
 time_series = [1 + 0.01*x for x in range(n + 1)]
@@ -179,15 +179,15 @@ plt.show()
 ##############################################################################
 #%%
 '''
-Continuous-time models can be resampled to emulate simulating the model with a 
-rougher discretization timestep. Result of these analysis shows that the 
-continuous time models should be considered with lines and curves in the 
+Continuous-time models can be resampled to emulate simulating the model with a
+rougher discretization timestep. Result of these analysis shows that the
+continuous time models should be considered with lines and curves in the
 Complexity-Entropy plane rather than with distinct points
 
 This requires a long base time series to obtain accurate results
 
 Resampling Complexity-Entropy analysis applied to sine function
-For this you need to make sure the final resampled time series still uphold 
+For this you need to make sure the final resampled time series still uphold
 the length requirement for the Complexity-Entropy analysis.
 '''
 
@@ -198,16 +198,16 @@ lags = [1 + n for n in range(2000 + 1)]
 
 
 for x in tqdm(range(len(lags)), desc='Sine function', ncols=70):
-    # List comprehensions expression, list[start:end:skip], redefines list 
-    #object from "start" to "end" with "skip" being the number of list elements 
+    # List comprehensions expression, list[start:end:skip], redefines list
+    #object from "start" to "end" with "skip" being the number of list elements
     #skipped when resampling the original list
     red_ts = time_series_sine[::lags[x]]
     CH_sine_red = ComplexityEntropy(red_ts, d)
     H_sine_r, C_sine_r = CH_sine_red.CH_plane()
-    
+
     Entropy_sine.append(H_sine_r)
     Complex_sine.append(C_sine_r)
-    
+
 plt.figure(figsize = (9,6))
 
 plt.title('Complexity-Entropy ' + r'$\sin(\omega t)$')
@@ -231,8 +231,8 @@ def logistic_map(N, init_value, growth):
     '''
     Logistic Map:
     x[n+1] = r * x[n] * (1 - x[n])
-    
-    
+
+
     Parameters
     ----------
     N : INT
@@ -292,7 +292,7 @@ for r in tqdm(list(np.linspace(3.5, 4, 1000)), desc='Logistic', ncols=100):
     H, C = Logistic_CH.CH_plane()
     logistic_H.append(H)
     logistic_C.append(C)
-        
+
 plt.figure(figsize = (9,6))
 plt.plot(Max[0], Max[1], color = 'tab:blue')
 plt.plot(Min[0], Min[1], color = 'tab:blue')
@@ -304,9 +304,9 @@ plt.show()
 
 
 ##############################################################################
-#%% 
-''' 
-Lorenz model simulation 
+#%%
+'''
+Lorenz model simulation
 code sourced from the Wikipedia article of the Lorenz model
 https://en.wikipedia.org/wiki/Lorenz_system
 '''
@@ -367,9 +367,9 @@ plt.show()
 
 
 '''
-Same resampling technique used on the sine function, used on the Lorenz model. 
-For this you need to make sure the final resampled time series still uphold 
-the length requirement for the Complexity-Entropy analysis. 
+Same resampling technique used on the sine function, used on the Lorenz model.
+For this you need to make sure the final resampled time series still uphold
+the length requirement for the Complexity-Entropy analysis.
 '''
 H_lorenz = []
 C_lorenz = []
@@ -423,7 +423,7 @@ from fbm import FBM
 Hurst = 0.1
 # Simulating Fractional Brownian motion
 #          (length, hurst exponent)
-fBm1 = FBM(500, Hurst) 
+fBm1 = FBM(500, Hurst)
 series_1 = list(fBm1.fbm())
 
 hurst2 = 0.7
@@ -465,7 +465,7 @@ plt.show()
 
 
 '''
-Fractional Brownian Motion Complexity-Entropy analysis, should create a nice 
+Fractional Brownian Motion Complexity-Entropy analysis, should create a nice
 curve in the Complexity-Entropy plane
 '''
 from fbm import FBM
@@ -481,7 +481,7 @@ n = 2**19
 
 
 # List different husrt exponents
-hurst = [0.001 , 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 
+hurst = [0.001 , 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6,
          0.65, 0.7, 0.75, 0.8, 0.84, 0.88, 0.90, 0.905, 0.91, 0.915, 0.92]
 
 for x in range(m):
@@ -534,7 +534,7 @@ Entropy_fgn = [[] for i in range(m)]
 n = 2**19
 
 # List different husrt exponents
-hurst = [0.001 , 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 
+hurst = [0.001 , 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6,
          0.65, 0.7, 0.75, 0.8, 0.84, 0.88, 0.90, 0.905, 0.91, 0.915, 0.92]
 
 
